@@ -53,7 +53,7 @@ const pages: fetchedData[] = data.map((page: fetchedData) => ({
 }));
 
 const { slug } = Astro.params;
-const page = pages.find((page: string) => page.slug === slug);
+const page = pages.find((page: fetchedData) => page.slug === slug);
 if (!page) return Astro.redirect("/404");
 const { title, img, imgalt, body } = page;
 
