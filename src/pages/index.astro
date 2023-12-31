@@ -20,8 +20,16 @@ const fetchData = async (type: string, fields: string) => {
 	return result as FetchDataResult[];
 };
 
-const home = await fetchData("home", `"title" : title, "lefttext": lefttext, "righttext": righttext, "image": bgimg, "imagealt": bgimg.alt`);
-const pages = await fetchData("pages", `"title" : title, "slug": slug.current, "image": img, "imagealt": img.alt, "show": showonhome`);
+interface PageData {
+	title: string;
+	slug: string;
+	image: string; // Adjust the type if needed
+	imagealt: string;
+	show: boolean | null;
+}
+
+const home: FetchDataResult[] = await fetchData("home", `"title" : title, "lefttext": lefttext, "righttext": righttext, "image": bgimg, "imagealt": bgimg.alt`);
+const pages: FetchDataResult[] = await fetchData("pages", `"title" : title, "slug": slug.current, "image": img, "imagealt": img.alt, "show": showonhome`);
 
 function urlFor(source: string) {
 	return builder.image(source);
@@ -31,7 +39,7 @@ interface Page {
 	show: boolean | null;
 }
 
-const visiblePages = pages.filter((page: Page) => page.show !== false && page.show !== null);
+const visiblePages = pages.filter((page: PageData) => page.show !== false && page.show !== null);
 ---
 <Layout title={home[0]["title"]}>
 	<div class="h-screen sm:min-h-[40rem] min-h-[55rem]">
@@ -53,7 +61,7 @@ const visiblePages = pages.filter((page: Page) => page.show !== false && page.sh
 						<Image
 							src={urlFor(image.asset).format("webp").url()}
 							alt={imagealt}
-							className="rounded-xl mb-2 object-cover w-full flex-grow" // Note: Use className instead of class
+							class="rounded-xl mb-2 object-cover w-full flex-grow" // Note: Use className instead of class
 						width={500}
 						height={500}
 						/>
