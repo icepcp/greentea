@@ -9,8 +9,8 @@ import { Image } from 'astro:assets';
 
 const builder = imageUrlBuilder(client)
 
-function urlFor(source) {
-    return builder.image(source)
+function urlFor(source: string) {
+    return builder.image(source);
 }
 
 const data = await client.fetch(`*[_type == "pages"]{
@@ -21,7 +21,15 @@ const data = await client.fetch(`*[_type == "pages"]{
   "body": body
 }`);
 
-const pages = data.map((page) => ({
+interface fetchedData {
+    slug: string;
+    title: string;
+    img: string;
+    imgalt: string;
+    body: string;
+}
+
+const pages: fetchedData[] = data.map((page: fetchedData) => ({
     slug: page.slug,
     title: page.title,
     img: page.img,
@@ -29,8 +37,9 @@ const pages = data.map((page) => ({
     body: page.body
 }));
 
+
 const { slug } = Astro.params;
-const page = pages.find((page) => page.slug === slug);
+const page = pages.find((page: string) => page.slug === slug);
 if (!page) return Astro.redirect("/404");
 const { title, img, imgalt, body } = page;
 
@@ -39,7 +48,6 @@ const components = {
         image: Img
     }
 };
-let history;
 ---
 <Layout title={title}>
     <div class="h-screen min-h-[40rem]">

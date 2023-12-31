@@ -6,16 +6,32 @@ import Layout from "../layout.astro";
 
 const builder = imageUrlBuilder(client)
 
-const fetchData = async (type, fields) => await client.fetch(`*[ _type == "${type}"]{ ${fields} } | order(title asc)`);
-
-function urlFor(source) {
-	return builder.image(source)
+interface FetchDataResult {
+	[key: string]: any;
 }
+
+const fetchData = async (type: string, fields: string) => {
+	const query = `*[ _type == "${type}"]{ ${fields} } | order(title asc)`;
+
+	// Fetch data and cast the result to the expected structure
+	const result = await client.fetch(query);
+
+	// Adjust the return type based on the actual result structure
+	return result as FetchDataResult[];
+};
 
 const home = await fetchData("home", `"title" : title, "lefttext": lefttext, "righttext": righttext, "image": bgimg, "imagealt": bgimg.alt`);
 const pages = await fetchData("pages", `"title" : title, "slug": slug.current, "image": img, "imagealt": img.alt, "show": showonhome`);
 
-const visiblePages = pages.filter((page) => page.show !== false && page.show !== null);
+function urlFor(source: string) {
+	return builder.image(source);
+}
+
+interface Page {
+	show: boolean | null;
+}
+
+const visiblePages = pages.filter((page: Page) => page.show !== false && page.show !== null);
 ---
 <Layout title={home[0]["title"]}>
 	<div class="h-screen sm:min-h-[40rem] min-h-[55rem]">
@@ -29,7 +45,7 @@ const visiblePages = pages.filter((page) => page.show !== false && page.show !==
 				</div>
 			</header>
 			<main class="lg:mx-10 md:mx-56 sm:mx-32 xs:mx-6 mx-4 h-1/2 lg:flex gap-4 pb-5">
-				{visiblePages.map(({ image, imagealt, slug, title }) => (
+				{visiblePages.map(({ image, imagealt, slug, title }: { image: string; imagealt: string; slug: string; title: string }) => (
 					<a
 						href={slug}
 						class="bg-green-100 hover:bg-green-200 hover:-translate-y-1 hover:shadow-lg ring-1 ring-opacity-20 ring-black transition rounded-2xl p-3 flex flex-col mb-6 lg:mb-0 pb-2"
