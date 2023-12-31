@@ -21,12 +21,27 @@ const data = await client.fetch(`*[_type == "pages"]{
   "body": body
 }`);
 
+interface Block {
+    _key: string;
+    _type: string;
+    style?: string;
+    listItem?: string;
+    markDefs?: any[]; // Adjust the type if you have specific markDefs structure
+    children?: Block[][];
+    level?: number;
+    asset?: {
+        _ref: string;
+        _type: string;
+    };
+    alt?: string;
+}
+
 interface fetchedData {
     slug: string;
     title: string;
     img: string;
     imgalt: string;
-    body: string;
+    body: Block[]; // Update the type for the 'body' property
 }
 
 const pages: fetchedData[] = data.map((page: fetchedData) => ({
@@ -36,7 +51,6 @@ const pages: fetchedData[] = data.map((page: fetchedData) => ({
     imgalt: page.imgalt,
     body: page.body
 }));
-
 
 const { slug } = Astro.params;
 const page = pages.find((page: string) => page.slug === slug);
