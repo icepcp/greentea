@@ -51,11 +51,11 @@ const visiblePages = pages.filter((page: Page) => page.show !== false && page.sh
 						class="bg-green-100 hover:bg-green-200 hover:-translate-y-1 hover:shadow-lg ring-1 ring-opacity-20 ring-black transition rounded-2xl p-3 flex flex-col mb-6 lg:mb-0 pb-2"
 					>
 						<Image
-							src={urlFor(image.asset).format("webp").url()} // Use image.asset here
-						alt={imagealt}
-						class="rounded-xl mb-2 object-cover w-full flex-grow"
-						width="500"
-						height="500"
+							src={urlFor(image.asset).format("webp").url()}
+							alt={imagealt}
+							className="rounded-xl mb-2 object-cover w-full flex-grow" // Note: Use className instead of class
+						width={500}
+						height={500}
 						/>
 						<h2 class="text-2xl sm:text-3xl font-semibold whitespace-pre-line ml-0.5 pb-2">{title}</h2>
 					</a>
