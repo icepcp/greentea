@@ -1,0 +1,34 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import '@fontsource-variable/inter';
+import {client} from "./lib/astro";
+
+const fetchData = async (type, fields) => await client.fetch(`*[ _type == "${type}"]{ ${fields} } | order(title asc)`);
+const home = await fetchData("home", `"desc": lefttext`);
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} - greentea</title>
+    <meta property="og:title" content={title} />
+    <meta property="og:url" content="https://greentea.pages.dev/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content={home[0]["desc"]} />
+    <meta name="description" content={home[0]["desc"]}>
+    <ViewTransitions />
+    <style>
+        body {
+            font-family: 'Inter Variable', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<slot />
+</body>
+</html>

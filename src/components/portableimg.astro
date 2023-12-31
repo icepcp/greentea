@@ -1,0 +1,11 @@
+---
+import type { Props as $, TypedObject } from "astro-portabletext/types";
+import Image from "./image.astro";
+
+type ImageProps = Parameters<typeof Image>[0];
+
+export type Props = $<ImageProps & TypedObject>;
+
+const { node /*, isInline */ } = Astro.props;
+---
+<Image {...node} />

@@ -1,0 +1,16 @@
+---
+import { imageUrlFor } from "../lib/image";
+
+type Asset = Parameters<typeof imageUrlFor>[0];
+
+export interface Props {
+    asset: Asset;
+    alt: string;
+}
+
+const { asset, alt } = Astro.props;
+const image = imageUrlFor(asset);
+---
+<div class="flex h-full w-full justify-center items-center">
+    <img src={image} alt={alt} class="rounded-lg max-h-[60vh]" />
+</div>

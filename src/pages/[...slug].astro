@@ -1,0 +1,72 @@
+---
+import {client} from "../lib/astro";
+import Layout from "../layout.astro";
+import { PortableText } from "astro-portabletext";
+import imageUrlBuilder from '@sanity/image-url'
+import Img from "../components/portableimg.astro";
+import { Icon } from 'astro-icon/components'
+import { Image } from 'astro:assets';
+
+const builder = imageUrlBuilder(client)
+
+function urlFor(source) {
+    return builder.image(source)
+}
+
+const data = await client.fetch(`*[_type == "pages"]{
+  "title" : title,
+  "slug": slug.current,
+  "img": img,
+  "imgalt": img.alt,
+  "body": body
+}`);
+
+const pages = data.map((page) => ({
+    slug: page.slug,
+    title: page.title,
+    img: page.img,
+    imgalt: page.imgalt,
+    body: page.body
+}));
+
+const { slug } = Astro.params;
+const page = pages.find((page) => page.slug === slug);
+if (!page) return Astro.redirect("/404");
+const { title, img, imgalt, body } = page;
+
+const components = {
+    type: {
+        image: Img
+    }
+};
+let history;
+---
+<Layout title={title}>
+    <div class="h-screen min-h-[40rem]">
+        <Image class="object-cover w-full z-0 opacity-100 fade h-1/2" src={urlFor(img).format("webp").url()} alt={imgalt} width="1920" height="1000" />
+        <div class="mx-auto max-w-3xl px-10">
+            <header class="absolute top-0 h-1/2 min-h-[20rem] grid content-end z-10 pb-4 text-sm">
+                <button onclick="history.back()" class="w-fit flex items-center mb-3 gap-1 bg-green-50 group hover:bg-green-100 hover:shadow-xl transition rounded-xl p-1 pl-2 pr-3">
+                    <Icon name="mdi:arrow-left" class="w-4 group-hover:-translate-x-1 transition" />
+                    Back
+                </button>
+                <h1 class="text-5xl font-semibold">{title}</h1>
+            </header>
+            <div class="prose">
+                <PortableText value={body} components={components} />
+            </div>
+        </div>
+    </div>
+</Layout>
+<style>
+    .fade {
+        mask: linear-gradient(black, transparent);
+        backdrop-filter: blur(10px);
+    }
+
+    body {
+        background-color: rgb(221 214 254);
+        overflow-x: hidden;
+        margin-right: calc(-1 * (100vw - 100%));
+    }
+</style>

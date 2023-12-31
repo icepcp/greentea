@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
@@ -12,10 +12,22 @@
     "pages:deploy": "astro build && wrangler pages deploy ./dist"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^8.0.0",
-    "astro": "^4.0.3"
+    "@astrojs/check": "^0.3.4",
+    "@astrojs/cloudflare": "^8.0.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource-variable/inter": "^5.0.16",
+    "@iconify-json/mdi": "^1.1.63",
+    "@sanity/client": "^6.10.0",
+    "@sanity/image-url": "^1.0.2",
+    "@types/node": "^20.10.6",
+    "astro": "^4.0.8",
+    "astro-icon": "^1.0.1",
+    "astro-portabletext": "^0.9.6",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "wrangler": "^3.19.0"
+    "@tailwindcss/typography": "^0.5.10",
+    "wrangler": "^3.22.1"
   }
 }
