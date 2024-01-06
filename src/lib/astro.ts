@@ -1,5 +1,6 @@
 import { createClient } from '@sanity/client';
 
+// @ts-ignore
 const id = import.meta.env.PROJ_ID;
 
 export const client = createClient({
