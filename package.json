@@ -19,7 +19,6 @@
     "@iconify-json/mdi": "^1.1.63",
     "@sanity/client": "^6.10.0",
     "@sanity/image-url": "^1.0.2",
-    "@types/node": "^20.10.6",
     "astro": "^4.0.8",
     "astro-icon": "^1.0.1",
     "astro-portabletext": "^0.9.6",
