@@ -1,5 +1,7 @@
 ---
-const URL_TEST = Astro.locals.runtime;
+const data = import.meta.env.TEST;
+const data2 = import.meta.env.ENCRYPTED_TEST;
 ---
 
-<pre>{JSON.stringify(URL_TEST.env)}</pre>
+<pre>{data}</pre>
+<pre>{data2}</pre>
