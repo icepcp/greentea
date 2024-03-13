@@ -2,8 +2,9 @@
 import { ViewTransitions } from 'astro:transitions';
 import '@fontsource-variable/inter';
 import {client} from "./lib/astro";
+import './globals.css'
 
-const fetchData = async (type, fields) => await client.fetch(`*[ _type == "${type}"]{ ${fields} } | order(title asc)`);
+const fetchData = async (type: string, fields: string) => await client.fetch(`*[ _type == "${type}"]{ ${fields} } | order(title asc)`);
 const home = await fetchData("home", `"desc": lefttext`);
 
 const { title } = Astro.props;

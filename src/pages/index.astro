@@ -37,7 +37,7 @@ const visiblePages = pages.filter((page: FetchDataResult) => {
 		<div class="mx-auto max-w-7xl">
 			<header class="absolute top-0 px-6 sm:px-10 h-1/2 sm:min-h-[20rem] min-h-[27.5rem] grid content-end z-10 w-full lg:pb-4 pb-6 max-w-7xl">
 				<h1 class="text-3xl xs:text-4xl sm:text-5xl font-semibold">{home[0].title}</h1>
-				<div class="justify-between lg:flex text-sm xs:text-lg mt-2 whitespace-pre-line tracking-[.005em]">
+				<div class="justify-between lg:flex text-sm sm:text-lg mt-2 whitespace-pre-line tracking-[.005em]">
 					<p>{home[0]["lefttext"]}</p>
 					<p class="lg:text-right mt-2 lg:mt-0">{home[0]["righttext"]}</p>
 				</div>
@@ -51,7 +51,7 @@ const visiblePages = pages.filter((page: FetchDataResult) => {
 						<Image
 							src={urlFor(image.asset).format("webp").url()}
 							alt={imagealt}
-							class="rounded-xl mb-2 object-cover w-full flex-grow"
+							class="rounded-xl mb-2 object-cover w-full"
 						width={500}
 						height={500}
 						/>

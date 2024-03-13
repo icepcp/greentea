@@ -1,0 +1,12 @@
+---
+import {client} from "../lib/astro";
+import ReactAccordion from "./reactAccordion.tsx"
+
+const { node } = Astro.props;
+
+const result = await client.fetch(`*[ _type == "pages"]{"_ref" : _id, "slug": slug.current, "title": title}`);
+const matchingRefs = new Set(node.rows.map((row: { _ref: string; }) => row._ref));
+const finalResult = result.filter((item: { _ref: string; }) => matchingRefs.has(item._ref));
+---
+
+<ReactAccordion title={node.title} content={finalResult} client:load />

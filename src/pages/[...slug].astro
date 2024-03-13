@@ -4,6 +4,7 @@ import Layout from "../layout.astro";
 import { PortableText } from "astro-portabletext";
 import imageUrlBuilder from '@sanity/image-url'
 import Img from "../components/portableimg.astro";
+import Accordion from "../components/accordion.astro"
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets';
 
@@ -59,7 +60,8 @@ const { title, img, imgalt, body } = page;
 
 const components = {
     type: {
-        image: Img
+        image: Img,
+        accordion: Accordion
     }
 };
 ---
@@ -72,9 +74,9 @@ const components = {
                     <Icon name="mdi:arrow-left" class="w-4 group-hover:-translate-x-1 transition" />
                     Back
                 </button>
-                <h1 class="text-5xl font-semibold">{title}</h1>
+                <h1 class="text-5xl font-semibold max-w-2xl">{title}</h1>
             </header>
-            <div class="prose">
+            <div class="prose pb-10">
                 <PortableText value={body} components={components} />
             </div>
         </div>
