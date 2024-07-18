@@ -46,12 +46,12 @@ const visiblePages = pages.filter((page: FetchDataResult) => {
 				{visiblePages.map(({ image, imagealt, slug, title }) => (
 					<a
 						href={slug}
-						class="bg-green-100 hover:bg-green-200 hover:-translate-y-1 hover:shadow-lg ring-1 ring-opacity-20 ring-black transition rounded-2xl p-3 flex flex-col mb-6 lg:mb-0 pb-2"
+						class="bg-green-100 hover:bg-green-200 hover:-translate-y-1 hover:shadow-lg ring-1 ring-opacity-20 ring-black transition rounded-2xl p-3 flex flex-col mb-6 lg:mb-0 pb-2 flex-1"
 					>
 						<Image
 							src={urlFor(image.asset).format("webp").url()}
 							alt={imagealt}
-							class="rounded-xl mb-2 object-cover w-full"
+							class="rounded-xl mb-2 object-cover aspect-video"
 						width={500}
 						height={500}
 						/>
