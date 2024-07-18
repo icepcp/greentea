@@ -2,7 +2,7 @@ on: [push]
 jobs:
   deploy:
     env:
-      PROJ_ID: ckvf1x81
+      PROJ_ID: ${{ vars.PROJ_ID }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
